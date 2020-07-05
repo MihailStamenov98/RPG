@@ -1,6 +1,6 @@
 
 struct MyMapGenerator : MapGenerator {
-    func generate(players: [Player]) -> Map {
+    func generate(players: [Player], itemGen: EquipmentGenerator) -> Map {
         let playersCount = players.count
         var size = 0
         var options: [Position] = []
@@ -27,7 +27,7 @@ struct MyMapGenerator : MapGenerator {
         let walls = generateTilePlaces(options: &options, size: size)
         let rocks = generateTilePlaces(options: &options, size: size)
         let chests = generateTilePlaces(options: &options, size: size)
-        return MyMap(players: players, options: options, teleports: teleports, walls: walls, rocks: rocks, chests: chests) 
+        return MyMap(players: players, options: options, teleports: teleports, walls: walls, rocks: rocks, chests: chests, itemGen: itemGen) 
     }
     func generateTilePlaces(options: inout [Position], size: Int) -> [Position]{
         var result: [Position] = []

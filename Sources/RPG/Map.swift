@@ -60,5 +60,5 @@ enum MapMoveDirection {
 
 
 protocol MapGenerator {
-    func generate(players:[Player]) -> Map
+    func generate(players:[Player],itemGen: EquipmentGenerator) -> Map
 }

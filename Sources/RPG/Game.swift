@@ -6,11 +6,12 @@ class Game {
     var mapGenerator: MapGenerator
     var playerGenerator: PlayerGenerator
     var mapRenderer: MapRenderer
-
-    init(mapGenerator: MapGenerator, playerGenerator: PlayerGenerator, mapRenderer: MapRenderer) {
+    var itemGenerator: EquipmentGenerator
+    init(mapGenerator: MapGenerator, playerGenerator: PlayerGenerator, mapRenderer: MapRenderer, itemGenerator: EquipmentGenerator) {
         self.mapGenerator = mapGenerator
         self.playerGenerator = playerGenerator
         self.mapRenderer = mapRenderer
+        self.itemGenerator = itemGenerator
     }
     
     //implement main logic
@@ -38,7 +39,7 @@ class Game {
        
        
 
-        let map = mapGenerator.generate(players: players)
+        let map = mapGenerator.generate(players: players, itemGen: itemGenerator)
         // 1. Избор на брой играчи. Минимум 2 броя.
         // 1. Генериране на карта с определени брой размери на базата на броя играчи.
         // 1. Докато има повече от един оцелял играч, изпълнявай ходове.

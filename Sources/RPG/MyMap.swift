@@ -18,21 +18,27 @@ struct Position: Equatable{
 class MyMap : Map {
    // let size: Int
     var players: [Player]
+    var playersPositions: [Position] = []
     var maze: [[MapTile]] = []
+    var itemGen: EquipmentGenerator
     required init(players: [Player]) {
         self.players = players
         let line = Array(repeating: EmptyTile(), count: players.count+3)
         maze = Array(repeating: line, count: players.count+3)
+        itemGen = DefaultEquipmentGenerator()
     }
-    convenience init(players: [Player], options: [Position], teleports: [Position], walls: [Position], rocks: [Position], chests: [Position]){
+    convenience init(players: [Player], options: [Position], teleports: [Position], walls: [Position], rocks: [Position], chests: [Position], itemGen: EquipmentGenerator){   
         self.init(players: players)
+        self.itemGen = itemGen
         creatTeleports(teleports: teleports, options: options)
         CreateWallsAndRocks(walls: walls, rocks: rocks)
+        CreateChests(chests: chests)
+        var leftSpaces = options
+        for i in 0 ... players.count - 1 {
+            playersPositions.append(leftSpaces.randomElement()!)
+            leftSpaces.remove(at: leftSpaces.firstIndex(of: playersPositions[i])!)
+        }
     }
-    
-    
-    //func setTeleports(_ teleports: [Position]){ 
-   // }
     
 
     func availableMoves(player: Player) -> [PlayerMove] {
@@ -71,6 +77,17 @@ extension MyMap{
     }
 }
 
+
+extension MyMap{
+    func CreateChests(chests: [Position]){
+        let items:[Item] = itemGen.allArmors + itemGen.allWeapons 
+        for i in chests{
+            let randomItem = items.randomElement()
+            let current = ChestTile(item: randomItem!)
+            maze[i.x][i.y] = current
+        }
+    }
+}
 
 class MyMapRenderer: MapRenderer {
     func render(map: Map) {

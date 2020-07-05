@@ -35,7 +35,7 @@ struct DefaultPlayerGenerator: PlayerGenerator {
     }
     
     func generatePlayer(name: String) -> Player {
-        var player = DefaultPlayer()
+        let player = DefaultPlayer()
         player.name = name
         player.hero = heroGenerator.getRandom()
         return player
@@ -49,7 +49,7 @@ struct DefaultHeroGenerator: HeroGenerator {
 }
 
 struct DefaultMapGenerator : MapGenerator {
-    func generate(players: [Player]) -> Map {
+    func generate(players: [Player], itemGen: EquipmentGenerator) -> Map {
         return DefaultMap(players: players)
     }
 }
