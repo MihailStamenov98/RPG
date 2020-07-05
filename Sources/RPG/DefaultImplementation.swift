@@ -11,11 +11,13 @@ struct DefaultHero: Hero {
 }
 
 struct NoArmor: Armor {
+    var type = ItemType.armore
     var attack: Int = 0
     var defence: Int = 0
 }
 
 struct WoodenStick: Weapon {
+    var type = ItemType.weapon
     var attack: Int = 2
     var defence: Int = 1
 }

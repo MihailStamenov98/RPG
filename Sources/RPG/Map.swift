@@ -55,18 +55,9 @@ enum MapMoveDirection {
     case right
 }
 
-protocol MapTile {
-    var type: MapTileType {get set}
-    var state: String {get set}
-}
 
-enum MapTileType {
-    case empty
-    case chest
-    case wall
-    case teleport
-    case rock
-}
+
+
 
 protocol MapGenerator {
     func generate(players:[Player]) -> Map

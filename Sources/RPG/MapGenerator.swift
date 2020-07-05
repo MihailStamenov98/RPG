@@ -7,21 +7,22 @@ struct MyMapGenerator : MapGenerator {
         switch playersCount {
             case  2:
                 size = 5
-                for i in 1 ... 25{
-                    options.append(Position(x: i/5, y: i%5))
+                for i in 0 ... 24{
+                    options.append(Position( i/5,  i%5))
                 }
             case  3:
                 size = 6
-                for i in 1 ... 36{
-                    options.append(Position(x: i/6, y: i%6))
+                for i in 0 ... 35{
+                    options.append(Position(i/6, i%6))
                 }
             case  4:
                 size = 7
-                for i in 1 ... 36{
-                    options.append(Position(x: i/7, y: i%7))
+                for i in 0 ... 48{
+                    options.append(Position( i/7,  i%7))
                 }
             default: size = 0
         }
+       // print(options)
         let teleports = generateTilePlaces(options: &options, size: size)
         let walls = generateTilePlaces(options: &options, size: size)
         let rocks = generateTilePlaces(options: &options, size: size)
