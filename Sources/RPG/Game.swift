@@ -64,6 +64,7 @@ class Game {
                     var allCommands = ["finish", "map"]
                     if currentPlayer.isAlive {
                         allCommands.append("seppuku")
+                        //print(availableMoves[0].friendlyCommandName)
                         availableMoves.forEach { (move) in
                             allCommands.append(move.friendlyCommandName)
                         }

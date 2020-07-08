@@ -30,7 +30,7 @@ class MyMap : Map {
     var players: [Player]
     var maze: [[MapTile]] = []
     var itemGen: EquipmentGenerator
-    var playersPositions:[Position]
+    var playersPositions:[Position] = []
     required init(players: [Player]) {
         self.players = players
         let line = Array(repeating: EmptyTile(), count: players.count+3)
@@ -57,16 +57,21 @@ class MyMap : Map {
     }
     
 
-    func availableMoves(player: Player) -> [PlayerMove] {
-       return []
+
+    func move(player: Player, move: PlayerMove) {
+       //ТОДО: редуцирай енергията на героя на играча с 1
     }
-    private func isPositionInMap(position: Position)->Bool{
+    
+}
+
+extension MyMap{
+     private func isPositionInMap(position: Position)->Bool{
         let x = position.x
         let y = position.y
-        if x < 0 || x >= players.count{
+        if x < 0 || x >= players.count+3{
             return false
         }
-        if y < 0 || y >= players.count{
+        if y < 0 || y >= players.count+3{
             return false
         }
         return true
@@ -80,7 +85,58 @@ class MyMap : Map {
             return true
         }
     }
-    private func actionsFromNeighbourTile(position: Position, direction: MapMoveDirection) -> PlayerMove?{
+}
+
+
+extension MyMap{
+    
+    func availableMoves(player: Player) -> [PlayerMove] {
+        let plPos = findPlayerPosition(player: player)
+        let x = plPos.x
+        let y = plPos.y
+        var result:  [PlayerMove]  = []
+        if let current = maze[x][y] as? TeleportTile, isEmpty(position: current.conection) && maze[x][y].type == .teleport {
+            result.append(StandartPlayerMove(direction: .teleport))
+        }
+
+
+        if isPositionInMap(position: Position(x+1,y)) && maze[x+1][y].type != .wall {
+            print("In down")
+            if let x = actionsFromNeighbourTile(position: Position(x+1, y), direction: .down){
+                result.append(x)
+            }
+        }
+        if isPositionInMap(position: Position(x-1,y)) && maze[x-1][y].type != .wall {
+            print("In up")
+            if let x = actionsFromNeighbourTile(position: Position(x-1, y), direction: .up){
+                result.append(x)
+            }
+        }
+        if isPositionInMap(position: Position(x,y+1)) && maze[x][y+1].type != .wall {
+            print("In right")
+            if let x = actionsFromNeighbourTile(position: Position(x, y+1), direction: .right){
+                result.append(x)
+            }
+        }
+        if isPositionInMap(position: Position(x,y-1)) && maze[x][y-1].type != .wall {
+            print("In left")
+            if let x = actionsFromNeighbourTile(position: Position(x, y-1), direction: .left){
+                result.append(x)
+            }
+        }
+       return result
+    }
+   func findPlayerPosition(player: Player)->Position{
+       var i = 0
+       for p in players{
+           if p.name == player.name{
+               return playersPositions[i]
+           }
+           i = i+1
+       }
+       return Position(0,0)
+   }
+    func actionsFromNeighbourTile(position: Position, direction: MapMoveDirection) -> PlayerMove?{
         let tile = maze[position.x][position.y]
         switch tile.type {
             case .chest:
@@ -89,10 +145,6 @@ class MyMap : Map {
                 if let x =  rockCase(rockPosition: position, direction: direction){
                     return x
                 }      
-            case .teleport:
-                return StandartPlayerMove(direction: direction)
-            case .wall:
-                return nil
             case .empty:
                 if let current = tile as? EmptyTile, current.playerOnIt != nil{
                     return PlayerActions(direction:direction, action: .attack)
@@ -100,7 +152,12 @@ class MyMap : Map {
                 else{
                     return StandartPlayerMove(direction:direction)
                 }
+            case .teleport:
+                return StandartPlayerMove(direction: direction)
+            default:
+                return nil
         }
+        return nil
     }
 
 
@@ -130,13 +187,7 @@ class MyMap : Map {
         }
 
     }
-
-    func move(player: Player, move: PlayerMove) {
-       //ТОДО: редуцирай енергията на героя на играча с 1
-    }
-    
 }
-
 
 extension MyMap{
     func creatTeleports(teleports: [Position], options: [Position]){

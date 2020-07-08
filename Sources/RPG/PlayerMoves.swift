@@ -14,7 +14,7 @@ class StandartPlayerMove: PlayerMove {
         self.direction = direction
         switch self.direction {
         case .up:
-            friendlyCommandName = "go"
+            friendlyCommandName = "up"
         case .down:
             friendlyCommandName = "down"
         case .left:

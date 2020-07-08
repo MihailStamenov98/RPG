@@ -66,7 +66,7 @@ class TeleportTile: EmptyTile {
 }
 
 
-class ChestTile{
+class ChestTile: MapTile{
     var chest: Item
     var opened: Bool
     var type: MapTileType
