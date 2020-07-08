@@ -1,11 +1,11 @@
-var mapGenerator = MyMapGenerator()//DefaultMapGenerator()
+/*var mapGenerator = MyMapGenerator()//DefaultMapGenerator()
 var playerGenerator = DefaultPlayerGenerator(heroGenerator: DefaultHeroGenerator())
 var figthGenerator = DefaultFightGenerator()
 var equipmentGenerator = DefaultEquipmentGenerator()
-var mapRendered = DefaultMapRenderer()
+var mapRendered = MyMapRenderer()
 var game = Game(mapGenerator: mapGenerator, playerGenerator: playerGenerator, mapRenderer: mapRendered, itemGenerator: equipmentGenerator)
 
-game.run()
+game.run()*/
 
 //var mapGenerator = MyMapGenerator()
 /*
@@ -25,4 +25,8 @@ print("------------------------")
 wall.printAll()
 print("------------------------")
 rock.printAll()
-*/
+
+let x : String = MapMoveDirection.up.rawValue
+print(x)*/
+let action = PlayerActions(direction: MapMoveDirection.up, action: MapAction.attack)
+print(action.friendlyCommandName)

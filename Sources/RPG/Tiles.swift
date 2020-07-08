@@ -25,21 +25,30 @@ enum MapTileType {
 class EmptyTile: MapTile{
     var type: MapTileType
     var state: String
-    var free: Bool
+    var playerOnIt: Int? = nil
     public init() {
         self.type = .empty
-        state = ""
-        free = true
+        state = "is free"
+    }
+    public init(playerOnIt: Int) {
+        self.type = .empty
+        state = " and challenge player#\(playerOnIt)"
+        self.playerOnIt = playerOnIt 
     }
     public func printAll(){
         print(type)
         print(state)
-        print("free = \(free)")
+        //print("free = \(free)")
     }
+    public func setPlayer(playerNumber:Int){
+        playerOnIt = playerNumber
+    } 
 }
+
+
+
+
 class TeleportTile: EmptyTile {
-    //var type: MapTileType
-    //var state: String
     var conection: Position
     var blocked: Bool
     public init(to: Position) {
@@ -57,18 +66,20 @@ class TeleportTile: EmptyTile {
 }
 
 
-class ChestTile: EmptyTile{
+class ChestTile{
     var chest: Item
     var opened: Bool
+    var type: MapTileType
+    var state: String
     public init(item: Item) {
         chest = item
         opened = false
-        super.init()
-        super.type = .chest
-        super.state = " open Chest"
+        self.type = .chest
+        self.state = " open Chest"
     }
-    override public func printAll(){
-        super.printAll()
+    public func printAll(){
+        print(type)
+        print(state)
         print(chest)
         print("opened = \(opened)")
     }

@@ -1,4 +1,6 @@
-
+protocol MapGenerator {
+    func generate(players:[Player],itemGen: EquipmentGenerator) -> Map
+}
 struct MyMapGenerator : MapGenerator {
     func generate(players: [Player], itemGen: EquipmentGenerator) -> Map {
         let playersCount = players.count
