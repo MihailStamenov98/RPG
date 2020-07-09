@@ -51,7 +51,7 @@ extension PlayerMove {
 enum MapMoveDirection: String {
     case up = "up"
     case down = "down"
-    case left = "Left"
+    case left = "left"
     case right = "right"
     case teleport = "teleport"
     

@@ -8,19 +8,19 @@ struct MyMapGenerator : MapGenerator {
         var options: [Position] = []
         switch playersCount {
             case  2:
-                size = 5
-                for i in 0 ... 24{
-                    options.append(Position( i/5,  i%5))
-                }
-            case  3:
                 size = 6
                 for i in 0 ... 35{
-                    options.append(Position(i/6, i%6))
+                    options.append(Position( i/6,  i%6))
                 }
-            case  4:
+            case  3:
                 size = 7
                 for i in 0 ... 48{
-                    options.append(Position( i/7,  i%7))
+                    options.append(Position(i/7, i%7))
+                }
+            case  4:
+                size = 8
+                for i in 0 ... 63{
+                    options.append(Position( i/8,  i%8))
                 }
             default: size = 0
         }

@@ -40,7 +40,7 @@ class EmptyTile: MapTile{
         print(state)
         //print("free = \(free)")
     }
-    public func setPlayer(playerNumber:Int){
+    public func setPlayer(playerNumber:Int?){
         playerOnIt = playerNumber
     } 
 }

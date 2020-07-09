@@ -93,6 +93,7 @@ class Game {
                             case "seppuku":
                                 print("Ritual suicide...")
                                 currentPlayer.isAlive = false
+                               // map.killPlayer(player: currentPlayer)
                                 playerMoveIsNotFinished = false
                                 print("Вашият ход приключи.")
                             default:
@@ -125,4 +126,4 @@ class Game {
             p.isAlive
         }
     }
-}
+} 
