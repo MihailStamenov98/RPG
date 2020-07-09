@@ -269,9 +269,9 @@ extension MyMap{
         var nextY = y 
         switch direction {
             case .up:
-                nextX = x+1
-            case .down:
                 nextX = x-1
+            case .down:
+                nextX = x+1
             case .left:
                 nextY = y-1
             case .right:
